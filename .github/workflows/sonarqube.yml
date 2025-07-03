@@ -28,4 +28,4 @@ jobs:
           organization: thilak-404
           projectKey: codtech-secure-ci
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{893d457341246b38f2442dd08610b036dca5810e}}

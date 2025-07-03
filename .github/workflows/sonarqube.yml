@@ -1,10 +1,35 @@
-cache@v3
+name: SonarCloud Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarcloud:
+    name: SonarCloud Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java (SonarCloud CLI requires Java)
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - name: Run SonarCloud Scan
+      - name: Download and Run SonarCloud Scanner
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
@@ -12,4 +37,8 @@ cache@v3
           unzip sonar-scanner.zip
           export PATH="$PATH:$(pwd)/sonar-scanner-5.0.1.3006-linux/bin"
           sonar-scanner \
-            -Dsonar.projectKey=codtech-secure-ci 
+            -Dsonar.projectKey=codtech-secure-ci \
+            -Dsonar.organization=thilak-404 \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${SONAR_TOKEN}

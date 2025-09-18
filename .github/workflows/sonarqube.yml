@@ -30,6 +30,6 @@ jobs:
             -Dsonar.projectKey=thilak-404_codtech-secure-ci
             -Dsonar.organization=thilak-404
             -Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.python.version=3.8  # Adjust to your Python version
+            -Dsonar.python.version=3.8
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

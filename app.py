@@ -1,1 +1,2 @@
-print('Hello SonarQube')
+def greet(): print('Hello, SonarQube!')
+greet()
